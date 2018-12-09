@@ -1,0 +1,9 @@
+
+*.png
+
+[Bb]in
+[Ll]ib/
+[Ll]ib64/
+
+pyvenv.cfg
+pip-selfcheck.json
