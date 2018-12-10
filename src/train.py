@@ -4,8 +4,8 @@ import time
 import tensorflow as tf
 from IPython import display
 
-from generator import Generator, generator_loss, make_generator_model
-from discriminator import Discriminator, discriminator_loss, make_discriminator_model
+from generator import generator_loss, make_generator_model
+from discriminator import discriminator_loss, make_discriminator_model
 from images import generate_and_save_images
 CHECKPOINT_DIR = '{}/../training_checkpoints'.format(os.path.dirname(os.path.realpath(__file__)))
 CHECKPOINT_PREFIX = os.path.join(CHECKPOINT_DIR, "ckpt")
@@ -13,8 +13,6 @@ CHECKPOINT_PREFIX = os.path.join(CHECKPOINT_DIR, "ckpt")
 NUM_EXAMPLES_TO_GENERATE = 16
 
 # Initialize our generator and discriminator
-#generator = Generator()
-#discriminator = Discriminator()
 generator = make_generator_model()
 discriminator = make_discriminator_model()
 
