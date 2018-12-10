@@ -1,9 +1,11 @@
 
 *.png
 
+training_checkpoints/
 [Bb]in
 [Ll]ib/
 [Ll]ib64/
+__pycache__/
 
 pyvenv.cfg
 pip-selfcheck.json
