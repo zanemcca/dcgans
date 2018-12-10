@@ -14,13 +14,14 @@ def get_image_name(epoch_no):
     return '{}/image_at_epoch{:04d}.png'.format(IMAGES_DIR, epoch_no)
 
 def display_image(epoch_no):
-    return PIL.IMAGE.open(get_image_name(epoch_no))
+    return PIL.Image.open(get_image_name(epoch_no))
 
 def generate_and_save_images(model, epoch, test_input):
     os.makedirs(IMAGES_DIR, exist_ok=True)
 
     predictions = model(test_input, training=False)
 
+    # plt.close()
     fig = plt.figure(figsize=(4,4))
 
     for i in range(predictions.shape[0]):
@@ -36,9 +37,9 @@ def generate_and_save_images(model, epoch, test_input):
         plt.draw()
         plt.pause(0.001)
 
-def generate_gif(filename):
-    with imageio.get_writer(filename, mode='I') as writer:
-        filename = '{}/{}'.format(IMAGES_DIR, filename)
+def generate_gif(ouput_filename):
+    ouput_filename = '{}/{}'.format(IMAGES_DIR, ouput_filename)
+    with imageio.get_writer(output_filename, mode='I') as writer:
         filenames = glob.glob('{}/image*.png'.format(IMAGES_DIR))
         filenames = sorted(filenames)
         last = -1
@@ -55,7 +56,7 @@ def generate_gif(filename):
         image = imageio.imread(filename)
         writer.append_data(image)
 
-    os.system('cp {} {}.png'.format(filename, filename))
+    os.system('cp {} {}.png'.format(ouput_filename, ouput_filename))
 
     if not ON_HEADLESS_SERVER:
-        display.Image(filename='{}.png'.format(filename))
+        display.Image(filename='{}.png'.format(ouput_filename))
