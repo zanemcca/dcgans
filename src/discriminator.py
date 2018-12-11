@@ -2,9 +2,11 @@
 import tensorflow as tf
 
 def discriminator_loss(real_output, generated_output):
+    # real images are all labeled 1
     real_loss = tf.losses.sigmoid_cross_entropy(multi_class_labels=tf.ones_like(real_output), logits=real_output)
 
-    generated_loss = tf.losses.sigmoid_cross_entropy(multi_class_labels=tf.ones_like(generated_output), logits=generated_output)
+    # generated images are all labelled 0
+    generated_loss = tf.losses.sigmoid_cross_entropy(multi_class_labels=tf.zeros_like(generated_output), logits=generated_output)
 
     total_loss = real_loss + generated_loss
 

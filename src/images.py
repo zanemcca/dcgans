@@ -21,7 +21,6 @@ def generate_and_save_images(model, epoch, test_input):
 
     predictions = model(test_input, training=False)
 
-    # plt.close()
     fig = plt.figure(figsize=(4,4))
 
     for i in range(predictions.shape[0]):
@@ -36,16 +35,18 @@ def generate_and_save_images(model, epoch, test_input):
         plt.show()
         plt.draw()
         plt.pause(0.001)
+    else:
+        plt.close(fig)
 
-def generate_gif(ouput_filename):
-    ouput_filename = '{}/{}'.format(IMAGES_DIR, ouput_filename)
+def generate_gif(output_filename):
+    output_filename = '{}/{}'.format(IMAGES_DIR, output_filename)
     with imageio.get_writer(output_filename, mode='I') as writer:
         filenames = glob.glob('{}/image*.png'.format(IMAGES_DIR))
         filenames = sorted(filenames)
         last = -1
         for i, filename in enumerate(filenames):
             frame= 2*(i**0.5)
-            if round(frame) > roudn(last):
+            if round(frame) > round(last):
                 last = frame
             else:
                 continue
@@ -56,7 +57,7 @@ def generate_gif(ouput_filename):
         image = imageio.imread(filename)
         writer.append_data(image)
 
-    os.system('cp {} {}.png'.format(ouput_filename, ouput_filename))
+    os.system('cp {} {}.png'.format(output_filename, output_filename))
 
     if not ON_HEADLESS_SERVER:
-        display.Image(filename='{}.png'.format(ouput_filename))
+        display.Image(filename='{}.png'.format(output_filename))
